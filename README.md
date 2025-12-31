@@ -1,2 +1,2 @@
-# todo-application-backend
-TODO Application backend
+# todo-application
+Golang + React app
