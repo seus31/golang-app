@@ -1,0 +1,6 @@
+.env
+/.env.local
+/.env.local.*
+/.idea
+/backend/tmp/main
+/.vscode

@@ -7,8 +7,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go install github.com/air-verse/air@latest
-RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+RUN go install github.com/air-verse/air@v1.52.3
+RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@v4.18.1
 
 RUN apk add make
 

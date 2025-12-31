@@ -1,0 +1,44 @@
+services:
+  backend:
+    build: ./backend/app
+    env_file:
+      - ./.env.local.backend
+    volumes:
+      - ./backend/app:/app
+      - todo-application-backend-tmp:/app/tmp
+    ports:
+      - "${EXPOSE_BACKEND_PORT}:8080"
+    environment:
+      - GOPROXY=${GOPROXY}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - todo-application-database:/var/lib/postgresql/data
+    ports:
+      - "${EXPOSE_POSTGRES_PORT}:5432"
+
+  frontend:
+    build: ./frontend/app
+    env_file:
+      - ./.env.local.frontend
+    volumes:
+      - ./frontend/app:/app
+      - todo-application-frontend-node-modules:/app/node_modules
+    ports:
+      - "${EXPOSE_FRONTEND_PORT}:5173"
+
+volumes:
+  todo-application-frontend-node-modules:
+  todo-application-backend-tmp:
+  todo-application-database:
